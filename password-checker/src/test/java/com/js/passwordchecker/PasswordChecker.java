@@ -22,7 +22,7 @@ public class PasswordChecker {
             metCount += 1;
         }
 
-        if (metCount == 1) {
+        if (metCount == 1 || metCount == 0) {
             return PasswordStrength.WEAK;
         }
         if (metCount == 2) {
