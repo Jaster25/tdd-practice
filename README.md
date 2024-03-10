@@ -30,8 +30,8 @@
 
 <br>
 
-## 2. 멤버쉽 적립 서비스
-> **membership 프로젝트**
+## 2. 멤버십 적립 서비스
+> **membership-api 프로젝트**
 > 
 > [블로그 - TDD 실습 by 망나니개발자](https://mangkyu.tistory.com/182)
 
