@@ -74,4 +74,18 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.NORMAL, result1);
         assertEquals(PasswordStrength.NORMAL, result2);
     }
+
+    @DisplayName("숫자 없음, 다른 조건들은 충족 -> 암호 강도: 보통")
+    @Test
+    void meetUppercaseAndLengthRules() {
+        // given
+
+        // when
+        PasswordStrength result1 = passwordChecker.check("abcdABCD");
+        PasswordStrength result2 = passwordChecker.check("aAbBcCdDeE");
+
+        // then
+        assertEquals(PasswordStrength.NORMAL, result1);
+        assertEquals(PasswordStrength.NORMAL, result2);
+    }
 }
