@@ -7,28 +7,29 @@ public class PasswordChecker {
             throw new IllegalArgumentException();
         }
 
-        boolean lengthRule = greaterThanOrEqualTo8(password);
-        boolean uppercaseRule = containsUppercase(password);
-        boolean digitRule = containsDigit(password);
+        int metCount = calculateMetCount(password);
 
-        int metCount = 0;
-        if (lengthRule) {
-            metCount += 1;
-        }
-        if (uppercaseRule) {
-            metCount += 1;
-        }
-        if (digitRule) {
-            metCount += 1;
-        }
-
-        if (metCount == 1 || metCount == 0) {
+        if (metCount == 0 || metCount == 1) {
             return PasswordStrength.WEAK;
-        }
-        if (metCount == 2) {
+        } else if (metCount == 2) {
             return PasswordStrength.NORMAL;
+        } else {
+            return PasswordStrength.STRONG;
         }
-        return PasswordStrength.STRONG;
+    }
+
+    private int calculateMetCount(String password) {
+        int metCount = 0;
+        if (greaterThanOrEqualTo8(password)) {
+            metCount += 1;
+        }
+        if (containsUppercase(password)) {
+            metCount += 1;
+        }
+        if (containsDigit(password)) {
+            metCount += 1;
+        }
+        return metCount;
     }
 
     private boolean greaterThanOrEqualTo8(String password) {
