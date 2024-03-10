@@ -102,4 +102,18 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.WEAK, result1);
         assertEquals(PasswordStrength.WEAK, result2);
     }
+
+    @DisplayName("암호 강도: 약함(대문자만 충족)")
+    @Test
+    void meetOnlyUppercaseRule() {
+        // given
+
+        // when
+        PasswordStrength result1 = passwordChecker.check("aaBB");
+        PasswordStrength result2 = passwordChecker.check("AABBCC");
+
+        // then
+        assertEquals(PasswordStrength.WEAK, result1);
+        assertEquals(PasswordStrength.WEAK, result2);
+    }
 }
