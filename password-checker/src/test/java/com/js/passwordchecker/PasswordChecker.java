@@ -7,6 +7,11 @@ public class PasswordChecker {
             throw new IllegalArgumentException();
         }
 
+        boolean lengthRule = password.length() >= 8;
+        if (!lengthRule) {
+            return PasswordStrength.NORMAL;
+        }
+
         return PasswordStrength.STRONG;
     }
 }
