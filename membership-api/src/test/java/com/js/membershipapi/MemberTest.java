@@ -16,8 +16,8 @@ public class MemberTest {
         Member member2 = new Member(2, "이회원", List.of("GS&POINT", "KAKAO"));
 
         // when
-        List<String> result1 = member1.getMembershipList();
-        List<String> result2 = member2.getMembershipList();
+        List<String> result1 = member1.getMemberships();
+        List<String> result2 = member2.getMemberships();
 
         // then
         Assertions.assertEquals(0, result1.size());
