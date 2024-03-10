@@ -33,7 +33,7 @@ public class PasswordCheckerTest {
                 () -> passwordChecker.check(""));
     }
 
-    @DisplayName("모든 조건 충족 -> 암호 강도: 강함")
+    @DisplayName("암호 강도: 강함")
     @Test
     void meetAllRules() {
         // given
@@ -47,7 +47,7 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.STRONG, result2);
     }
 
-    @DisplayName("길이가 8 미만, 다른 조건들은 충족 -> 암호 강도: 보통")
+    @DisplayName("암호 강도: 보통(길이가 8 미만)")
     @Test
     void meetDigitAndUppercaseRules() {
         // given
@@ -61,7 +61,7 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.NORMAL, result2);
     }
 
-    @DisplayName("대문자 없음, 다른 조건들은 충족 -> 암호 강도: 보통")
+    @DisplayName("암호 강도: 보통(대문자 없음)")
     @Test
     void meetDigitAndLengthRules() {
         // given
@@ -75,7 +75,7 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.NORMAL, result2);
     }
 
-    @DisplayName("숫자 없음, 다른 조건들은 충족 -> 암호 강도: 보통")
+    @DisplayName("암호 강도: 보통(숫자 없음)")
     @Test
     void meetUppercaseAndLengthRules() {
         // given
