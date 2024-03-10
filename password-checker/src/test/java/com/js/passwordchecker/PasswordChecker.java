@@ -17,6 +17,11 @@ public class PasswordChecker {
             return PasswordStrength.NORMAL;
         }
 
+        boolean digitRule = containsDigit(password);
+        if (!digitRule) {
+            return PasswordStrength.NORMAL;
+        }
+
         return PasswordStrength.STRONG;
     }
 
@@ -27,6 +32,15 @@ public class PasswordChecker {
     private boolean containsUppercase(String password) {
         for (char ch : password.toCharArray()) {
             if (Character.isUpperCase(ch)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsDigit(String password) {
+        for (char ch : password.toCharArray()) {
+            if (Character.isDigit(ch)) {
                 return true;
             }
         }
