@@ -31,8 +31,7 @@ public class MemberTest {
         Member member1 = new Member(1L, "김회원");
 
         // when
-        member1.registerMembership("GS&POINT");
-        String result = member1.getMemberships().get(0);
+        String result = member1.registerMembership("GS&POINT");
 
         // then
         Assertions.assertEquals("GS&POINT", result);

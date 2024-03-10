@@ -1,5 +1,6 @@
 package com.js.membershipapi;
 
+import jdk.jshell.spi.ExecutionControl;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -23,5 +24,9 @@ public class Member {
         this.id = id;
         this.name = name;
         this.memberships = memberships;
+    }
+
+    public String registerMembership(String membershipName) {
+        throw new RuntimeException();
     }
 }
