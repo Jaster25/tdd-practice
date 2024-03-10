@@ -1,6 +1,5 @@
 package com.js.membershipapi;
 
-import jdk.jshell.spi.ExecutionControl;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ public class Member {
     private Long id;
     private String name;
     private final List<String> memberships;
-
 
     public Member(Long id, String name) {
         this.id = id;
