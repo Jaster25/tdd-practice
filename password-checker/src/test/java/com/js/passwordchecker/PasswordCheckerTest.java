@@ -116,4 +116,18 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.WEAK, result1);
         assertEquals(PasswordStrength.WEAK, result2);
     }
+
+    @DisplayName("암호 강도: 약함(숫자만 충족)")
+    @Test
+    void meetOnlyDigitRule() {
+        // given
+
+        // when
+        PasswordStrength result1 = passwordChecker.check("1234");
+        PasswordStrength result2 = passwordChecker.check("654321");
+
+        // then
+        assertEquals(PasswordStrength.WEAK, result1);
+        assertEquals(PasswordStrength.WEAK, result2);
+    }
 }
