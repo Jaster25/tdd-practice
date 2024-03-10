@@ -130,4 +130,18 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.WEAK, result1);
         assertEquals(PasswordStrength.WEAK, result2);
     }
+
+    @DisplayName("암호 강도: 약함(아무것도 충족하지 않음)")
+    @Test
+    void meetNothing() {
+        // given
+        
+        // when
+        PasswordStrength result1 = passwordChecker.check("abc");
+        PasswordStrength result2 = passwordChecker.check("zsaave");
+
+        // then
+        assertEquals(PasswordStrength.WEAK, result1);
+        assertEquals(PasswordStrength.WEAK, result2);
+    }
 }
