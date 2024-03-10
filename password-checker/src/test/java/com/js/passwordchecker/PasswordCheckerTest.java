@@ -88,4 +88,18 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.NORMAL, result1);
         assertEquals(PasswordStrength.NORMAL, result2);
     }
+
+    @DisplayName("암호 강도: 약함(길이만 충족)")
+    @Test
+    void meetOnlyLengthRule() {
+        // given
+
+        // when
+        PasswordStrength result1 = passwordChecker.check("aaaabbbb");
+        PasswordStrength result2 = passwordChecker.check("ababababcd");
+
+        // then
+        assertEquals(PasswordStrength.WEAK, result1);
+        assertEquals(PasswordStrength.WEAK, result2);
+    }
 }
