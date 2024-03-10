@@ -27,6 +27,7 @@ public class Member {
     }
 
     public String registerMembership(String membershipName) {
-        throw new RuntimeException();
+        memberships.add(membershipName);
+        return membershipName;
     }
 }
