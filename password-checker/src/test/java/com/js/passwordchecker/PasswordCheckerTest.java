@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PasswordCheckerTest {
 
-    private PasswordChecker passwordChecker = new PasswordChecker();
+    private final PasswordChecker passwordChecker = new PasswordChecker();
 
     @DisplayName("인자가 null인 경우 예외 발생")
     @Test
@@ -85,7 +85,7 @@ public class PasswordCheckerTest {
         PasswordStrength result2 = passwordChecker.check("aAbBcCdDeE");
 
         // then
-        assertEquals(PasswordStrength.NO성RMAL, result1);
+        assertEquals(PasswordStrength.NORMAL, result1);
         assertEquals(PasswordStrength.NORMAL, result2);
     }
 

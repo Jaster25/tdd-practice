@@ -8,16 +8,21 @@ public class PasswordChecker {
         }
 
         boolean lengthRule = greaterThanOrEqualTo8(password);
+        boolean uppercaseRule = containsUppercase(password);
+        boolean digitRule = containsDigit(password);
+
+        if (lengthRule && !uppercaseRule && !digitRule) {
+            return PasswordStrength.WEAK;
+        }
+
         if (!lengthRule) {
             return PasswordStrength.NORMAL;
         }
 
-        boolean uppercaseRule = containsUppercase(password);
         if (!uppercaseRule) {
             return PasswordStrength.NORMAL;
         }
 
-        boolean digitRule = containsDigit(password);
         if (!digitRule) {
             return PasswordStrength.NORMAL;
         }
