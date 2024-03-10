@@ -8,18 +8,18 @@ import java.util.List;
 @Getter
 public class Member {
 
-    private int id;
+    private Long id;
     private String name;
     private final List<String> memberships;
 
 
-    public Member(int id, String name) {
+    public Member(Long id, String name) {
         this.id = id;
         this.name = name;
         this.memberships = new ArrayList<>();
     }
 
-    public Member(int id, String name, List<String> memberships) {
+    public Member(Long id, String name, List<String> memberships) {
         this.id = id;
         this.name = name;
         this.memberships = memberships;
