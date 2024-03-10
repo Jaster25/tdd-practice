@@ -25,19 +25,9 @@ public class PasswordChecker {
         if (metCount == 1) {
             return PasswordStrength.WEAK;
         }
-
-        if (!lengthRule) {
+        if (metCount == 2) {
             return PasswordStrength.NORMAL;
         }
-
-        if (!uppercaseRule) {
-            return PasswordStrength.NORMAL;
-        }
-
-        if (!digitRule) {
-            return PasswordStrength.NORMAL;
-        }
-
         return PasswordStrength.STRONG;
     }
 
