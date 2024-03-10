@@ -11,7 +11,9 @@ public class PasswordCheckerTest {
     @Test
     void nullInput() {
         // given
+
         // when
+
         // then
         assertThrows(IllegalArgumentException.class,
                 () -> new PasswordChecker().check(null));
@@ -21,10 +23,23 @@ public class PasswordCheckerTest {
     @Test
     void emptyInput() {
         // given
+
         // when
+
         // then
         assertThrows(IllegalArgumentException.class,
                 () -> new PasswordChecker().check(""));
     }
 
+    @DisplayName("모든 조건을 충족하면 암호 강도 강함")
+    @Test
+    void meetAllRules() {
+        // given
+
+        // when
+        PasswordStrength passwordStrength = new PasswordChecker().check("abcABC123");
+
+        // then
+        assertEquals(PasswordStrength.STRONG, passwordStrength);
+    }
 }
