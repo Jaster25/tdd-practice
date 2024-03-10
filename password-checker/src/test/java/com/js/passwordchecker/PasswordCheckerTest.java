@@ -85,7 +85,7 @@ public class PasswordCheckerTest {
         PasswordStrength result2 = passwordChecker.check("aAbBcCdDeE");
 
         // then
-        assertEquals(PasswordStrength.NORMAL, result1);
+        assertEquals(PasswordStrength.NO성RMAL, result1);
         assertEquals(PasswordStrength.NORMAL, result2);
     }
 
