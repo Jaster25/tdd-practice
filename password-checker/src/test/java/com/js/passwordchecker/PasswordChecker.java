@@ -11,7 +11,18 @@ public class PasswordChecker {
         boolean uppercaseRule = containsUppercase(password);
         boolean digitRule = containsDigit(password);
 
-        if (lengthRule && !uppercaseRule && !digitRule) {
+        int metCount = 0;
+        if (lengthRule) {
+            metCount += 1;
+        }
+        if (uppercaseRule) {
+            metCount += 1;
+        }
+        if (digitRule) {
+            metCount += 1;
+        }
+
+        if (metCount == 1) {
             return PasswordStrength.WEAK;
         }
 
