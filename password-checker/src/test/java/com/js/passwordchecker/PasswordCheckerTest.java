@@ -60,4 +60,18 @@ public class PasswordCheckerTest {
         assertEquals(PasswordStrength.NORMAL, result1);
         assertEquals(PasswordStrength.NORMAL, result2);
     }
+
+    @DisplayName("대문자 없음, 다른 조건들은 충족 -> 암호 강도: 보통")
+    @Test
+    void meetDigitAndLengthRules() {
+        // given
+
+        // when
+        PasswordStrength result1 = passwordChecker.check("abcd12345");
+        PasswordStrength result2 = passwordChecker.check("12ab34cde");
+
+        // then
+        assertEquals(PasswordStrength.NORMAL, result1);
+        assertEquals(PasswordStrength.NORMAL, result2);
+    }
 }
