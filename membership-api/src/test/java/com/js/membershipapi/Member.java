@@ -28,4 +28,8 @@ public class Member {
         memberships.add(newMembership);
         return newMembership;
     }
+
+    public void deleteMembership(Membership membership) {
+        throw new IllegalArgumentException("해당 회원의 멤버십이 아닙니다.");
+    }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MemberTest {
 
@@ -45,4 +46,34 @@ public class MemberTest {
         assertEquals("GS&POINT", result.getMembershipType().getCompanyName());
         assertEquals(0, result.getPoint());
     }
+
+    @DisplayName("존재하지 않는 멤버십 삭제")
+    @Test
+    void deleteNonexistentMembership() {
+        // given
+        Member member1 = new Member(1L, "김회원");
+        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> member1.deleteMembership(membership1));
+    }
+
+//    @DisplayName("존재하는 멤버십 삭제")
+//    @Test
+//    void deleteMembership() {
+//        // given
+//        Member member1 = new Member(1L, "김회원");
+//        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
+//        Membership membership2 = new Membership(2L, MembershipType.NAVER);
+//        member1.registerMembership(membership1);
+//        member1.registerMembership(membership2);
+//
+//        // when
+//        member1.deleteMembership(membership2);
+//
+//        // then
+//
+//    }
 }
