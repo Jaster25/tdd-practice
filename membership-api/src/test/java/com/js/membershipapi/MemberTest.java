@@ -60,20 +60,21 @@ public class MemberTest {
                 () -> member1.deleteMembership(membership1));
     }
 
-//    @DisplayName("존재하는 멤버십 삭제")
-//    @Test
-//    void deleteMembership() {
-//        // given
-//        Member member1 = new Member(1L, "김회원");
-//        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
-//        Membership membership2 = new Membership(2L, MembershipType.NAVER);
-//        member1.registerMembership(membership1);
-//        member1.registerMembership(membership2);
-//
-//        // when
-//        member1.deleteMembership(membership2);
-//
-//        // then
-//
-//    }
+    @DisplayName("존재하는 멤버십 삭제")
+    @Test
+    void deleteMembership() {
+        // given
+        Member member1 = new Member(1L, "김회원");
+        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
+        Membership membership2 = new Membership(2L, MembershipType.NAVER);
+        member1.registerMembership(membership1);
+        member1.registerMembership(membership2);
+
+        // when
+        member1.deleteMembership(membership2);
+
+        // then
+        assertEquals(1, member1.getMemberships().size());
+        assertEquals(MembershipType.GSNPOINT, member1.getMemberships().get(0).getMembershipType());
+    }
 }
