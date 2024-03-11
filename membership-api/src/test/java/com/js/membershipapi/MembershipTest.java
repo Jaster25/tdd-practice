@@ -10,12 +10,12 @@ public class MembershipTest {
     @Test
     void getPoint() {
         // given
-        Membership membership = new Membership(1L, "GS&POINT", 500);
+        Membership membership = new Membership(1L, "GS&POINT");
 
         // when
         int result = membership.getPoint();
 
         // then
-        Assertions.assertEquals(500, result);
+        Assertions.assertEquals(0, result);
     }
 }
