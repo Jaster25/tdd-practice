@@ -28,7 +28,7 @@ public class MembershipTest {
         
         // when
         membership.addPoint(300);
-        
+
         // then
         assertEquals(300, membership.getPoint());
     }

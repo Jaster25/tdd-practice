@@ -18,5 +18,6 @@ public class Membership {
     }
 
     public void addPoint(int earnedPoint) {
+        point += earnedPoint;
     }
 }
