@@ -1,11 +1,13 @@
 package com.js.membershipapi;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@ToString
 public class Member {
 
     private Long id;
@@ -30,6 +32,9 @@ public class Member {
     }
 
     public void deleteMembership(Membership membership) {
-        throw new IllegalArgumentException("해당 회원의 멤버십이 아닙니다.");
+        if (!memberships.contains(membership)) {
+            throw new IllegalArgumentException("해당 회원의 멤버십이 아닙니다.");
+        }
+        memberships.remove(membership);
     }
 }

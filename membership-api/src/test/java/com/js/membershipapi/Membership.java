@@ -3,10 +3,12 @@ package com.js.membershipapi;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
+@ToString
 public class Membership {
 
     private Long id;
