@@ -13,8 +13,8 @@ public class MemberTest {
     @Test
     void getMembershipList() {
         // given
-        Membership membership1 = new Membership(1L, "GS&POINT");
-        Membership membership2 = new Membership(2L, "NAVER");
+        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
+        Membership membership2 = new Membership(2L, MembershipType.NAVER);
 
         Member member1 = new Member(1L, "김회원");
         Member member2 = new Member(2L, "이회원", List.of(membership1));
@@ -36,13 +36,13 @@ public class MemberTest {
     void registerMembership() {
         // given
         Member member1 = new Member(1L, "김회원");
-        Membership membership1 = new Membership(1L, "GS&POINT");
+        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
 
         // when
         Membership result = member1.registerMembership(membership1);
 
         // then
-        assertEquals("GS&POINT", result.getName());
+        assertEquals("GS&POINT", result.getMembershipType().getCompanyName());
         assertEquals(0, result.getPoint());
     }
 }

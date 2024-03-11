@@ -1,5 +1,7 @@
 package com.js.membershipapi;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -8,13 +10,17 @@ import java.time.LocalDateTime;
 public class Membership {
 
     private Long id;
-    private String name;
+
+    @Enumerated(EnumType.STRING)
+    private final MembershipType membershipType;
+
     private int point = 0;
+
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public Membership(Long id, String name) {
+    public Membership(Long id, MembershipType membershipType) {
         this.id = id;
-        this.name = name;
+        this.membershipType = membershipType;
     }
 
     public void addPoint(int earnedPoint) {
