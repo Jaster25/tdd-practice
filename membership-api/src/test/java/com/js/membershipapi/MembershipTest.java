@@ -1,8 +1,9 @@
 package com.js.membershipapi;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MembershipTest {
 
@@ -16,6 +17,19 @@ public class MembershipTest {
         int result = membership.getPoint();
 
         // then
-        Assertions.assertEquals(0, result);
+        assertEquals(0, result);
+    }
+    
+    @DisplayName("포인트 추가")
+    @Test
+    void addPoint() {
+        // given
+        Membership membership = new Membership(1L, "GS&POINT");
+        
+        // when
+        membership.addPoint(300);
+        
+        // then
+        assertEquals(300, membership.getPoint());
     }
 }

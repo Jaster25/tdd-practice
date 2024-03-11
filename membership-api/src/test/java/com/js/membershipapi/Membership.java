@@ -16,4 +16,7 @@ public class Membership {
         this.id = id;
         this.name = name;
     }
+
+    public void addPoint(int earnedPoint) {
+    }
 }
