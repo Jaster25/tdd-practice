@@ -59,4 +59,7 @@ public class MemberServiceTest {
         // then
         assertEquals("김회원", foundMember.getName());
     }
+
+    // TODO: 멤버십 등록
+    // TODO: 멤버십 삭제
 }
