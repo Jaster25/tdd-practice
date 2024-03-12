@@ -29,6 +29,8 @@ public class MembershipService {
     }
 
     public void verify(Member member, Membership membership) {
-        throw new IllegalArgumentException("권한이 없습니다.");
+        if (!membership.getMember().equals(member)) {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
     }
 }
