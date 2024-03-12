@@ -15,4 +15,13 @@ public enum MembershipType {
     MembershipType(String companyName) {
         this.companyName = companyName;
     }
+
+    public static MembershipType getType(String companyName) {
+        for (MembershipType type : MembershipType.values()) {
+            if (type.getCompanyName().equals(companyName)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }
