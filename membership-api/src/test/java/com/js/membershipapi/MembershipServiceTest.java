@@ -165,6 +165,22 @@ public class MembershipServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> membershipService.register(1L, MembershipType.GSNPOINT.getCompanyName()));
     }
+
+    @DisplayName("존재하지 않는 멤버십 이름 등록")
+    @Test
+    void registerNonexistentMembershipName() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.register(1L, "abcd"));
+    }
     // TODO: 이미 존재하는 멤버십 중복 등록
 
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
