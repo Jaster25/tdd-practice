@@ -1,27 +1,34 @@
 package com.js.membershipapi;
 
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Getter
 @ToString
+@NoArgsConstructor
 public class Member {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
-    private String name;
-    private final List<Membership> memberships;
 
-    public Member(Long id, String name) {
-        this.id = id;
+    private String name;
+
+    private List<Membership> memberships;
+
+    public Member(String name) {
         this.name = name;
         this.memberships = new ArrayList<>();
     }
 
-    public Member(Long id, String name, List<Membership> memberships) {
-        this.id = id;
+    public Member(String name, List<Membership> memberships) {
         this.name = name;
         this.memberships = memberships;
     }

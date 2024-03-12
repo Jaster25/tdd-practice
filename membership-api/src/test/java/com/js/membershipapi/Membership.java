@@ -1,27 +1,35 @@
 package com.js.membershipapi;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Entity
 @Getter
 @ToString
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Membership {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "membership_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private final MembershipType membershipType;
+    private MembershipType membershipType;
 
     private int point = 0;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @CreatedDate
+    private LocalDateTime registeredAt;
 
-    public Membership(Long id, MembershipType membershipType) {
-        this.id = id;
+    public Membership(MembershipType membershipType) {
         this.membershipType = membershipType;
     }
 

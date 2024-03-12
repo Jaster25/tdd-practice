@@ -14,12 +14,12 @@ public class MemberTest {
     @Test
     void getMembershipList() {
         // given
-        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
-        Membership membership2 = new Membership(2L, MembershipType.NAVER);
+        Membership membership1 = new Membership(MembershipType.GSNPOINT);
+        Membership membership2 = new Membership(MembershipType.NAVER);
 
-        Member member1 = new Member(1L, "김회원");
-        Member member2 = new Member(2L, "이회원", List.of(membership1));
-        Member member3 = new Member(3L, "박회원", List.of(membership1, membership2));
+        Member member1 = new Member("김회원");
+        Member member2 = new Member("이회원", List.of(membership1));
+        Member member3 = new Member("박회원", List.of(membership1, membership2));
 
         // when
         List<Membership> result1 = member1.getMemberships();
@@ -36,8 +36,8 @@ public class MemberTest {
     @Test
     void registerMembership() {
         // given
-        Member member1 = new Member(1L, "김회원");
-        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
+        Member member1 = new Member("김회원");
+        Membership membership1 = new Membership(MembershipType.GSNPOINT);
 
         // when
         Membership result = member1.registerMembership(membership1);
@@ -51,8 +51,8 @@ public class MemberTest {
     @Test
     void deleteNonexistentMembership() {
         // given
-        Member member1 = new Member(1L, "김회원");
-        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
+        Member member1 = new Member("김회원");
+        Membership membership1 = new Membership(MembershipType.GSNPOINT);
 
         // when
         // then
@@ -64,9 +64,9 @@ public class MemberTest {
     @Test
     void deleteMembership() {
         // given
-        Member member1 = new Member(1L, "김회원");
-        Membership membership1 = new Membership(1L, MembershipType.GSNPOINT);
-        Membership membership2 = new Membership(2L, MembershipType.NAVER);
+        Member member1 = new Member("김회원");
+        Membership membership1 = new Membership(MembershipType.GSNPOINT);
+        Membership membership2 = new Membership(MembershipType.NAVER);
         member1.registerMembership(membership1);
         member1.registerMembership(membership2);
 

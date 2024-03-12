@@ -11,7 +11,7 @@ public class MembershipTest {
     @Test
     void getPoint() {
         // given
-        Membership membership = new Membership(1L, MembershipType.GSNPOINT);
+        Membership membership = new Membership(MembershipType.GSNPOINT);
 
         // when
         int result = membership.getPoint();
@@ -24,7 +24,7 @@ public class MembershipTest {
     @Test
     void addPoint() {
         // given
-        Membership membership = new Membership(1L, MembershipType.GSNPOINT);
+        Membership membership = new Membership(MembershipType.GSNPOINT);
         
         // when
         membership.addPoint(300);
