@@ -1,6 +1,7 @@
 package com.js.membershipapi;
 
 import com.js.membershipapi.domain.member.entity.Member;
+import com.js.membershipapi.domain.member.repository.MemberRepository;
 import com.js.membershipapi.domain.membership.entity.Membership;
 import com.js.membershipapi.domain.membership.entity.MembershipType;
 import com.js.membershipapi.domain.membership.repository.MembershipRepository;
@@ -8,15 +9,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class MembershipServiceTest {
@@ -25,6 +28,8 @@ public class MembershipServiceTest {
     private MembershipService membershipService;
 
     @Mock
+    private MemberRepository memberRepository;
+    @Mock
     private MembershipRepository membershipRepository;
 
     @DisplayName("존재하지 않는 멤버의 멤버십 목록 조회")
@@ -32,7 +37,9 @@ public class MembershipServiceTest {
     void getMembershipsOfNonexistentMember() {
         // given
         Long memberId = 123L;
-        
+        given(memberRepository.findById(123L))
+                .willThrow(IllegalArgumentException.class);
+
         // when
         // then
         assertThrows(IllegalArgumentException.class,
@@ -56,8 +63,9 @@ public class MembershipServiceTest {
                 .member(member)
                 .membershipType(MembershipType.KAKAO)
                 .build();
-
-        BDDMockito.given(membershipRepository.findAllByMemberId(memberId))
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+        given(membershipRepository.findAllByMemberId(memberId))
                 .willReturn(List.of(membership1, membership2));
 
         // when
