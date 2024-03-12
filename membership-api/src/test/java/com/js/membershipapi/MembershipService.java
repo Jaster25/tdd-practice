@@ -22,7 +22,7 @@ public class MembershipService {
         return membershipRepository.findAllByMemberId(memberId);
     }
 
-    public void getMembership(Long membershipId) {
+    public Membership getMembership(Long membershipId) {
         membershipRepository.findById(membershipId);
         throw new IllegalArgumentException("존재하지 않는 멤버십입니다.");
     }

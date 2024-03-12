@@ -88,5 +88,27 @@ public class MembershipServiceTest {
                 () -> membershipService.getMembership(123L));
     }
 
+    @DisplayName("멤버십 상세 조회")
+    @Test
+    void getMembership() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership1 = Membership.builder()
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+        given(membershipRepository.findById(anyLong()))
+                .willReturn(Optional.of(membership1));
+
+        // when
+        Membership foundMembership = membershipService.getMembership(anyLong());
+
+        // then
+        assertEquals(member.getName(), foundMembership.getMember().getName());
+        assertEquals(membership1.getMembershipType(), foundMembership.getMembershipType());
+    }
+
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
 }
