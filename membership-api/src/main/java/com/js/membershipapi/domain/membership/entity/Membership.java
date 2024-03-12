@@ -40,6 +40,9 @@ public class Membership {
     }
 
     public void addPoint(int earnedPoint) {
+        if (earnedPoint < 0) {
+            throw new IllegalArgumentException("추가하려는 포인트는 음수일 수 없습니다.");
+        }
         point += earnedPoint;
     }
 }
