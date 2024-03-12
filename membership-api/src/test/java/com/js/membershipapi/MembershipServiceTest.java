@@ -129,7 +129,24 @@ public class MembershipServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> membershipService.verify(member1, membership));
     }
-    // TODO: 본인 멤버십 검증
+
+    @DisplayName("본인 멤버십 검증")
+    @Test
+    void verifyAuthorizedMember() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+
+        // when
+        membershipService.verify(member, membership);
+
+        // then
+    }
 
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
     // TODO: 멤버십 등록
