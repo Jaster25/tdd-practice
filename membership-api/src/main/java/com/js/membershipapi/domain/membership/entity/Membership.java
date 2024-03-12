@@ -1,5 +1,6 @@
-package com.js.membershipapi;
+package com.js.membershipapi.domain.membership.entity;
 
+import com.js.membershipapi.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,10 @@ public class Membership {
     @Column(name = "membership_id")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Enumerated(EnumType.STRING)
     private MembershipType membershipType;
 
@@ -29,7 +34,8 @@ public class Membership {
     @CreatedDate
     private LocalDateTime registeredAt;
 
-    public Membership(MembershipType membershipType) {
+    public Membership(Member member, MembershipType membershipType) {
+        this.member = member;
         this.membershipType = membershipType;
     }
 

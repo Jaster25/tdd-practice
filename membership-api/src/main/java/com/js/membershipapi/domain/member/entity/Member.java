@@ -1,5 +1,6 @@
-package com.js.membershipapi;
+package com.js.membershipapi.domain.member.entity;
 
+import com.js.membershipapi.domain.membership.entity.Membership;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,11 @@ public class Member {
 
     private String name;
 
-    private List<Membership> memberships;
+    @OneToMany(mappedBy = "member")
+    private List<Membership> memberships = new ArrayList<>();
 
     public Member(String name) {
         this.name = name;
-        this.memberships = new ArrayList<>();
     }
 
     public Member(String name, List<Membership> memberships) {
@@ -33,10 +34,11 @@ public class Member {
         this.memberships = memberships;
     }
 
-    public Membership registerMembership(Membership newMembership) {
-        memberships.add(newMembership);
-        return newMembership;
-    }
+    // TODO: 멤버십 등록 기능은 서비스 계층에서 작업해야 식별자 생성과 영속화가 가능하다.
+//    public Membership registerMembership(Membership newMembership) {
+//        memberships.add(newMembership);
+//        return newMembership;
+//    }
 
     public void deleteMembership(Membership membership) {
         if (!memberships.contains(membership)) {
