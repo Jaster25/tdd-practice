@@ -23,9 +23,15 @@ public class MembershipService {
         return membershipRepository.findAllByMemberId(memberId);
     }
 
-    public Membership getMembership(Long membershipId) {
-        return membershipRepository.findById(membershipId)
+    public Membership getMembership(Long memberId, Long membershipId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
+        Membership membership = membershipRepository.findById(membershipId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버십입니다."));
+
+        verify(member, membership);
+
+        return membership;
     }
 
     public void verify(Member member, Membership membership) {

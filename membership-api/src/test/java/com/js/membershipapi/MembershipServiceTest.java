@@ -78,13 +78,16 @@ public class MembershipServiceTest {
     @Test
     void getNonexistentMembership() {
         // given
-        given(membershipRepository.findById(anyLong()))
-                .willReturn(Optional.empty());
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
 
         // when
         // then
         assertThrows(IllegalArgumentException.class,
-                () -> membershipService.getMembership(123L));
+                () -> membershipService.getMembership(123L, 123L));
     }
 
     @DisplayName("멤버십 상세 조회")
@@ -98,11 +101,13 @@ public class MembershipServiceTest {
                 .member(member)
                 .membershipType(MembershipType.GSNPOINT)
                 .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
         given(membershipRepository.findById(anyLong()))
                 .willReturn(Optional.of(membership1));
 
         // when
-        Membership foundMembership = membershipService.getMembership(anyLong());
+        Membership foundMembership = membershipService.getMembership(1L, 1L);
 
         // then
         assertEquals(member.getName(), foundMembership.getMember().getName());
