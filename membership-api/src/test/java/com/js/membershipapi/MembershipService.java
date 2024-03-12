@@ -1,5 +1,6 @@
 package com.js.membershipapi;
 
+import com.js.membershipapi.domain.member.entity.Member;
 import com.js.membershipapi.domain.member.repository.MemberRepository;
 import com.js.membershipapi.domain.membership.entity.Membership;
 import com.js.membershipapi.domain.membership.repository.MembershipRepository;
@@ -25,5 +26,9 @@ public class MembershipService {
     public Membership getMembership(Long membershipId) {
         return membershipRepository.findById(membershipId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버십입니다."));
+    }
+
+    public void verify(Member member, Membership membership) {
+        throw new IllegalArgumentException("권한이 없습니다.");
     }
 }

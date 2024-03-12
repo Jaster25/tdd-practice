@@ -5,7 +5,6 @@ import com.js.membershipapi.domain.member.repository.MemberRepository;
 import com.js.membershipapi.domain.membership.entity.Membership;
 import com.js.membershipapi.domain.membership.entity.MembershipType;
 import com.js.membershipapi.domain.membership.repository.MembershipRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -110,5 +109,29 @@ public class MembershipServiceTest {
         assertEquals(membership1.getMembershipType(), foundMembership.getMembershipType());
     }
 
+    @DisplayName("본인 멤버십이 아닌 경우 검증")
+    @Test
+    void verifyNonauthorizedMember() {
+        // given
+        Member member1 = Member.builder()
+                .name("김회원")
+                .build();
+        Member member2 = Member.builder()
+                .name("임회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member2)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.verify(member1, membership));
+    }
+    // TODO: 본인 멤버십 검증
+
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
+    // TODO: 멤버십 등록
+    // TODO: 멤버십 삭제
 }
