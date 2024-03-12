@@ -157,7 +157,7 @@ public class MembershipServiceTest {
     @Test
     void registerNonexistentMember() {
         // given
-        given(memberRepository.findById(123L))
+        given(memberRepository.findById(anyLong()))
                 .willReturn(Optional.empty());
 
         // when

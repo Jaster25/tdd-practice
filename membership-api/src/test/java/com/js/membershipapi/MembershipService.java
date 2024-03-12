@@ -41,5 +41,7 @@ public class MembershipService {
     }
 
     public void register(Long memberId, String companyName) {
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
     }
 }
