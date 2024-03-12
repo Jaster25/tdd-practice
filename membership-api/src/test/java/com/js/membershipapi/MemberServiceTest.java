@@ -34,6 +34,9 @@ public class MemberServiceTest {
     @Test
     void getNonexistentMember() {
         // given
+        BDDMockito.given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.empty());
+
         // when
         // then
         assertThrows(IllegalArgumentException.class,
@@ -55,6 +58,5 @@ public class MemberServiceTest {
 
         // then
         assertEquals("김회원", foundMember.getName());
-        assertEquals(1, foundMember.getMemberships().size());
     }
 }

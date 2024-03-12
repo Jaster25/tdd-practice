@@ -12,6 +12,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public Member getMember(Long id) {
-        throw new IllegalArgumentException("존재하지 않는 멤버입니다.");
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
     }
 }
