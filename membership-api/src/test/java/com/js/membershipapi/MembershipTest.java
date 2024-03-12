@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MembershipTest {
 
@@ -24,6 +25,19 @@ public class MembershipTest {
         assertEquals(0, result);
     }
     
+    @DisplayName("마이너스 포인트 추가")
+    @Test
+    void addMinusPoint() {
+        // given
+        Member member = new Member("김회원");
+        Membership membership = new Membership(member, MembershipType.GSNPOINT);
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membership.addPoint(-500));
+    }
+
     @DisplayName("포인트 추가")
     @Test
     void addPoint() {
