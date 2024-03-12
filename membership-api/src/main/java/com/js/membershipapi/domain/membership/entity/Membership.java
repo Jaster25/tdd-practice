@@ -2,9 +2,7 @@ package com.js.membershipapi.domain.membership.entity;
 
 import com.js.membershipapi.domain.member.entity.Member;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -13,8 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @ToString
-@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Membership {
 
     @Id
@@ -34,10 +32,15 @@ public class Membership {
     @CreatedDate
     private LocalDateTime registeredAt;
 
-    public Membership(Member member, MembershipType membershipType) {
+
+    @Builder
+    public Membership(Long id, Member member, MembershipType membershipType, int point) {
+        this.id = id;
         this.member = member;
         this.membershipType = membershipType;
+        this.point = point;
     }
+
 
     public void addPoint(int earnedPoint) {
         if (earnedPoint < 0) {

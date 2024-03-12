@@ -15,8 +15,13 @@ public class MembershipTest {
     @Test
     void getPoint() {
         // given
-        Member member = new Member("김회원");
-        Membership membership = new Membership(member, MembershipType.GSNPOINT);
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
 
         // when
         int result = membership.getPoint();
@@ -29,8 +34,13 @@ public class MembershipTest {
     @Test
     void addMinusPoint() {
         // given
-        Member member = new Member("김회원");
-        Membership membership = new Membership(member, MembershipType.GSNPOINT);
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
 
         // when
         // then
@@ -42,11 +52,20 @@ public class MembershipTest {
     @Test
     void addPoint() {
         // given
-        Member member1 = new Member("김회원");
-        Membership membership1 = new Membership(member1, MembershipType.GSNPOINT);
-
-        Member member2 = new Member("이회원");
-        Membership membership2 = new Membership(member2, MembershipType.GSNPOINT);
+        Member member1 = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership1 = Membership.builder()
+                .member(member1)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+        Member member2 = Member.builder()
+                .name("이회원")
+                .build();
+        Membership membership2 = Membership.builder()
+                .member(member2)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
 
         // when
         membership1.addPoint(300);

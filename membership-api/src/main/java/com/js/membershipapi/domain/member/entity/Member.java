@@ -2,9 +2,7 @@ package com.js.membershipapi.domain.member.entity;
 
 import com.js.membershipapi.domain.membership.entity.Membership;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -25,14 +23,13 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Membership> memberships = new ArrayList<>();
 
-    public Member(String name) {
+
+    @Builder
+    public Member(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public Member(String name, List<Membership> memberships) {
-        this.name = name;
-        this.memberships = memberships;
-    }
 
     // TODO: 멤버십 등록 기능은 서비스 계층에서 작업해야 식별자 생성과 영속화가 가능하다.
 //    public Membership registerMembership(Membership newMembership) {
