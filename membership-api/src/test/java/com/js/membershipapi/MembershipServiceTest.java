@@ -153,7 +153,20 @@ public class MembershipServiceTest {
         // then
     }
 
+    @DisplayName("존재하지 않는 멤버 멤버십 등록")
+    @Test
+    void registerNonexistentMember() {
+        // given
+        given(memberRepository.findById(123L))
+                .willReturn(Optional.empty());
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.register(1L, MembershipType.GSNPOINT.getCompanyName()));
+    }
+    // TODO: 이미 존재하는 멤버십 중복 등록
+
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
-    // TODO: 멤버십 등록
     // TODO: 멤버십 삭제
 }

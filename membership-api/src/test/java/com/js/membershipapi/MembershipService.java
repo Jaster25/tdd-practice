@@ -39,4 +39,7 @@ public class MembershipService {
             throw new IllegalArgumentException("권한이 없습니다.");
         }
     }
+
+    public void register(Long memberId, String companyName) {
+    }
 }
