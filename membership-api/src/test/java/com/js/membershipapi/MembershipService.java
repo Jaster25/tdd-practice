@@ -21,4 +21,7 @@ public class MembershipService {
 
         return membershipRepository.findAllByMemberId(memberId);
     }
+
+    public void getMembership(Long membershipId) {
+    }
 }

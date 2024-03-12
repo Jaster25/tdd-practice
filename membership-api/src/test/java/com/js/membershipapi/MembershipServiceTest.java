@@ -75,6 +75,18 @@ public class MembershipServiceTest {
         assertEquals(2, foundMemberships.size());
     }
 
-    // TODO: 멤버십 상세 조회
+    @DisplayName("존재하지 않는 멤버십 상세 조회")
+    @Test
+    void getNonexistentMembership() {
+        // given
+        given(membershipRepository.findById(anyLong()))
+                .willReturn(Optional.empty());
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.getMembership(123L));
+    }
+
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
 }
