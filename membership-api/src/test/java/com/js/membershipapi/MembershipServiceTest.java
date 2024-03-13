@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
@@ -181,7 +182,29 @@ public class MembershipServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> membershipService.register(1L, "abcd"));
     }
-    // TODO: 이미 존재하는 멤버십 중복 등록
+
+    @DisplayName("이미 존재하는 멤버십 중복 등록")
+    @Test
+    void registerDuplicatedMembership() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+        given(membershipRepository.findByMemberIdAndMembershipType(anyLong(), any()))
+                .willReturn(Optional.of(membership));
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.register(1L, MembershipType.GSNPOINT.getCompanyName()));
+        
+    }
 
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
     // TODO: 멤버십 삭제

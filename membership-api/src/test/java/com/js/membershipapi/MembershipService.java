@@ -46,6 +46,11 @@ public class MembershipService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
 
         MembershipType membershipType = MembershipType.getType(companyName);
+
+        if (membershipRepository.findByMemberIdAndMembershipType(memberId, membershipType).isPresent()) {
+            throw new IllegalArgumentException("이미 등록한 멤버십입니다.");
+        }
+
         if (membershipType == null) {
             throw new IllegalArgumentException("존재하지 않는 멤버십 이름입니다.");
         }
