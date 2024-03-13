@@ -2,6 +2,7 @@ package com.js.membershipapi;
 
 import com.js.membershipapi.domain.member.entity.Member;
 import com.js.membershipapi.domain.member.repository.MemberRepository;
+import com.js.membershipapi.domain.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

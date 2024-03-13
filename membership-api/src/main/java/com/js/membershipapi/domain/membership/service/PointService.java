@@ -1,4 +1,4 @@
-package com.js.membershipapi;
+package com.js.membershipapi.domain.membership.service;
 
 public interface PointService {
 

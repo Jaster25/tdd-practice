@@ -1,5 +1,6 @@
-package com.js.membershipapi;
+package com.js.membershipapi.domain.membership.service;
 
+import com.js.membershipapi.domain.membership.service.PointService;
 import org.springframework.stereotype.Service;
 
 @Service

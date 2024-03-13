@@ -1,4 +1,4 @@
-package com.js.membershipapi;
+package com.js.membershipapi.domain.membership.service;
 
 import com.js.membershipapi.domain.member.entity.Member;
 import com.js.membershipapi.domain.member.repository.MemberRepository;

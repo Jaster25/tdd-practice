@@ -5,6 +5,8 @@ import com.js.membershipapi.domain.member.repository.MemberRepository;
 import com.js.membershipapi.domain.membership.entity.Membership;
 import com.js.membershipapi.domain.membership.entity.MembershipType;
 import com.js.membershipapi.domain.membership.repository.MembershipRepository;
+import com.js.membershipapi.domain.membership.service.MembershipService;
+import com.js.membershipapi.domain.membership.service.PointService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
