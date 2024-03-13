@@ -203,10 +203,9 @@ public class MembershipServiceTest {
         // then
         assertThrows(IllegalArgumentException.class,
                 () -> membershipService.register(1L, MembershipType.GSNPOINT.getCompanyName()));
-        
     }
 
-    @DisplayName("존재하지 않는 멤버십 삭제")
+    @DisplayName("존재하지 않는 멤버의 멤버십 삭제")
     @Test
     void deleteMembershipOfNonexistentMember() {
         // given
@@ -217,6 +216,72 @@ public class MembershipServiceTest {
         // then
         assertThrows(IllegalArgumentException.class,
                 () -> membershipService.delete(1L, 5L));
+    }
+
+    @DisplayName("존재하지 않는 멤버십 삭제")
+    @Test
+    void deleteNonexistentMembership() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+        given(membershipRepository.findById(anyLong()))
+                .willReturn(Optional.empty());
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.delete(1L, 5L));
+    }
+
+    @DisplayName("권한 없는 멤버십 삭제")
+    @Test
+    void deleteNonauthorizedMembership() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Member member2 = Member.builder()
+                .name("이회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member2)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+        given(membershipRepository.findById(anyLong()))
+                .willReturn(Optional.of(membership));
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.delete(1L, 5L));
+    }
+
+    @DisplayName("멤버십 삭제")
+    @Test
+    void deleteMembership() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+        given(membershipRepository.findById(anyLong()))
+                .willReturn(Optional.of(membership));
+
+        // when
+        membershipService.delete(1L, 2L);
+
+        // then
+        assertEquals(0, member.getMemberships().size());
     }
 
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
