@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MembershipService {
 
+    private final PointService ratePointService;
     private final MemberRepository memberRepository;
     private final MembershipRepository membershipRepository;
 
@@ -35,12 +36,6 @@ public class MembershipService {
         verify(member, membership);
 
         return membership;
-    }
-
-    public void verify(Member member, Membership membership) {
-        if (!membership.getMember().equals(member)) {
-            throw new IllegalArgumentException("권한이 없습니다.");
-        }
     }
 
     @Transactional
@@ -82,6 +77,7 @@ public class MembershipService {
      *     - 추후 고정 금액(1000원)으로 확장이 가능하다.
      * </pre>
      */
+    @Transactional
     public void addPoint(Long memberId, Long membershipId, int amount) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
@@ -89,5 +85,15 @@ public class MembershipService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버십입니다."));
 
         verify(member, membership);
+
+        int earnedPoint = ratePointService.calculate(amount);
+
+        membership.addPoint(earnedPoint);
+    }
+
+    public void verify(Member member, Membership membership) {
+        if (!membership.getMember().equals(member)) {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
     }
 }

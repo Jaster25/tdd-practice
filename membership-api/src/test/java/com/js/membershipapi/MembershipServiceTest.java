@@ -27,6 +27,8 @@ public class MembershipServiceTest {
     private MembershipService membershipService;
 
     @Mock
+    private PointService ratePointService;
+    @Mock
     private MemberRepository memberRepository;
     @Mock
     private MembershipRepository membershipRepository;
@@ -354,12 +356,14 @@ public class MembershipServiceTest {
                 .willReturn(Optional.of(member));
         given(membershipRepository.findById(anyLong()))
                 .willReturn(Optional.of(membership));
+        given(ratePointService.calculate(anyInt()))
+                .willReturn(2);
 
         // when
-        membershipService.addPoint(1L, 2L, 100);
+        membershipService.addPoint(1L, 2L, 200);
         membershipService.addPoint(1L, 2L, 200);
 
         // then
-        assertEquals(3, membership.getPoint());
+        assertEquals(4, membership.getPoint());
     }
 }
