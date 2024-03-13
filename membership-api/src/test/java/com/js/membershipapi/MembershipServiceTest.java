@@ -296,7 +296,23 @@ public class MembershipServiceTest {
                 () -> membershipService.addPoint(1L, 1L, 3000));
     }
 
-    // TODO: 존재하지 않는 멤버십 포인트 적립
+    @DisplayName("존재하지 않는 멤버십 포인트 적립")
+    @Test
+    void addPointToNonexistentMembership() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+        given(membershipRepository.findById(anyLong()))
+                .willReturn(Optional.empty());
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.addPoint(1L, 1L, 3000));
+    }
     // TODO: 권한 없는 멤버십 포인트 적립
     // TODO: 멤버십 포인트 적립
 }
