@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum MembershipType {
 
-    GSNPOINT("GS&POINT"),
+    GSNPOINT("GS"),
     KAKAO("KAKAO"),
     NAVER("NAVER"),
     ;

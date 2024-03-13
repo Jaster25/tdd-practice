@@ -17,8 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -211,7 +210,7 @@ public class MembershipServiceTest {
         // given
         given(memberRepository.findById(anyLong()))
                 .willReturn(Optional.empty());
-        
+
         // when
         // then
         assertThrows(IllegalArgumentException.class,
@@ -284,5 +283,20 @@ public class MembershipServiceTest {
         assertEquals(0, member.getMemberships().size());
     }
 
-    // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
+    @DisplayName("존재하지 않는 멤버 포인트 적립")
+    @Test
+    void addPointToNonexistentMember() {
+        // given
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.empty());
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.addPoint(1L, 1L, 3000));
+    }
+
+    // TODO: 존재하지 않는 멤버십 포인트 적립
+    // TODO: 권한 없는 멤버십 포인트 적립
+    // TODO: 멤버십 포인트 적립
 }

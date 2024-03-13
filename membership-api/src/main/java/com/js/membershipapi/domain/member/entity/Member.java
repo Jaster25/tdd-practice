@@ -29,18 +29,4 @@ public class Member {
         this.id = id;
         this.name = name;
     }
-
-
-    // TODO: 멤버십 등록 기능은 서비스 계층에서 작업해야 식별자 생성과 영속화가 가능하다.
-//    public Membership registerMembership(Membership newMembership) {
-//        memberships.add(newMembership);
-//        return newMembership;
-//    }
-
-    public void deleteMembership(Membership membership) {
-        if (!memberships.contains(membership)) {
-            throw new IllegalArgumentException("해당 회원의 멤버십이 아닙니다.");
-        }
-        memberships.remove(membership);
-    }
 }

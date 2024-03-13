@@ -64,7 +64,7 @@ public class MembershipService {
     }
 
     @Transactional
-    public void delete(Long memberId, Long membershipId) {
+    public void  delete(Long memberId, Long membershipId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
         Membership membership = membershipRepository.findById(membershipId)
@@ -73,5 +73,16 @@ public class MembershipService {
         verify(member, membership);
 
         membershipRepository.delete(membership);
+    }
+
+    /**
+     * 멤버십 포인트 적립 방식은 확장이 가능하게 설계한다.
+     * <pre>
+     *     - 현재 포인트 적립 비율은 결제 금액의 1% 고정
+     *     - 추후 고정 금액(1000원)으로 확장이 가능하다.
+     * </pre>
+     */
+    public void addPoint(Long memberId, Long membershipId, int amount) {
+        throw new IllegalArgumentException();
     }
 }
