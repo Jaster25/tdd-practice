@@ -7,10 +7,12 @@ import com.js.membershipapi.domain.membership.entity.MembershipType;
 import com.js.membershipapi.domain.membership.repository.MembershipRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MembershipService {
 
@@ -41,22 +43,35 @@ public class MembershipService {
         }
     }
 
-    public void register(Long memberId, String companyName) {
-        memberRepository.findById(memberId)
+    @Transactional
+    public Membership register(Long memberId, String companyName) {
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
 
         MembershipType membershipType = MembershipType.getType(companyName);
-
+        if (membershipType == null) {
+            throw new IllegalArgumentException("존재하지 않는 멤버십 이름입니다.");
+        }
         if (membershipRepository.findByMemberIdAndMembershipType(memberId, membershipType).isPresent()) {
             throw new IllegalArgumentException("이미 등록한 멤버십입니다.");
         }
 
-        if (membershipType == null) {
-            throw new IllegalArgumentException("존재하지 않는 멤버십 이름입니다.");
-        }
+        Membership membership = Membership.builder()
+                .member(member)
+                .membershipType(membershipType)
+                .build();
+        return membershipRepository.save(membership);
     }
 
+    @Transactional
     public void delete(Long memberId, Long membershipId) {
-        throw new IllegalArgumentException("존재하지 않는 멤버입니다.");
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
+        Membership membership = membershipRepository.findById(membershipId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버십입니다."));
+
+        verify(member, membership);
+
+        membershipRepository.delete(membership);
     }
 }
