@@ -313,6 +313,28 @@ public class MembershipServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> membershipService.addPoint(1L, 1L, 3000));
     }
-    // TODO: 권한 없는 멤버십 포인트 적립
+
+    @DisplayName("권한 없는 멤버십 포인트 적립")
+    @Test
+    void addPointToNonauthorizedMembership() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+        given(membershipRepository.findById(anyLong()))
+                .willReturn(Optional.of(membership));
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.addPoint(1L, 2L, 3000));
+    }
+
     // TODO: 멤버십 포인트 적립
 }
