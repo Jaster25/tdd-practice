@@ -339,5 +339,27 @@ public class MembershipServiceTest {
                 () -> membershipService.addPoint(1L, 2L, 3000));
     }
 
-    // TODO: 멤버십 포인트 적립
+    @DisplayName("멤버십 포인트 적립")
+    @Test
+    void addPoint() {
+        // given
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership = Membership.builder()
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.of(member));
+        given(membershipRepository.findById(anyLong()))
+                .willReturn(Optional.of(membership));
+
+        // when
+        membershipService.addPoint(1L, 2L, 100);
+        membershipService.addPoint(1L, 2L, 200);
+
+        // then
+        assertEquals(3, membership.getPoint());
+    }
 }
