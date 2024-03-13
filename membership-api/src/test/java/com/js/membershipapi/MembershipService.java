@@ -55,4 +55,8 @@ public class MembershipService {
             throw new IllegalArgumentException("존재하지 않는 멤버십 이름입니다.");
         }
     }
+
+    public void delete(Long memberId, Long membershipId) {
+        throw new IllegalArgumentException("존재하지 않는 멤버입니다.");
+    }
 }

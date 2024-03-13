@@ -206,6 +206,18 @@ public class MembershipServiceTest {
         
     }
 
+    @DisplayName("존재하지 않는 멤버십 삭제")
+    @Test
+    void deleteMembershipOfNonexistentMember() {
+        // given
+        given(memberRepository.findById(anyLong()))
+                .willReturn(Optional.empty());
+        
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class,
+                () -> membershipService.delete(1L, 5L));
+    }
+
     // TODO: 멤버십 포인트 적립(적립 방식은 확장 가능하게)
-    // TODO: 멤버십 삭제
 }
