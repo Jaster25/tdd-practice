@@ -321,8 +321,11 @@ public class MembershipServiceTest {
         Member member = Member.builder()
                 .name("김회원")
                 .build();
+        Member member2 = Member.builder()
+                .name("이회원")
+                .build();
         Membership membership = Membership.builder()
-                .member(member)
+                .member(member2)
                 .membershipType(MembershipType.GSNPOINT)
                 .build();
         given(memberRepository.findById(anyLong()))

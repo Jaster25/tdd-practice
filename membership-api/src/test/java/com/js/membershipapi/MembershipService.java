@@ -83,9 +83,11 @@ public class MembershipService {
      * </pre>
      */
     public void addPoint(Long memberId, Long membershipId, int amount) {
-        memberRepository.findById(memberId)
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
-        membershipRepository.findById(membershipId)
+        Membership membership = membershipRepository.findById(membershipId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버십입니다."));
+
+        verify(member, membership);
     }
 }
