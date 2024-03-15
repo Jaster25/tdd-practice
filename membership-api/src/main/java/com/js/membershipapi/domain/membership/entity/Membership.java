@@ -34,11 +34,12 @@ public class Membership {
 
 
     @Builder
-    public Membership(Long id, Member member, MembershipType membershipType, int point) {
+    public Membership(Long id, Member member, MembershipType membershipType, int point, LocalDateTime registeredAt) {
         this.id = id;
         this.member = member;
         this.membershipType = membershipType;
         this.point = point;
+        this.registeredAt = registeredAt;
     }
 
 

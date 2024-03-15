@@ -1,6 +1,7 @@
 package com.js.membershipapi;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.js.membershipapi.domain.member.entity.Member;
 import com.js.membershipapi.domain.membership.entity.Membership;
 import com.js.membershipapi.domain.membership.entity.MembershipType;
@@ -10,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,6 +20,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -124,6 +131,7 @@ public class MembershipControllerTest {
     void getMembershipsOfNonexistentMember() throws Exception {
         // given
         final String URL = "/api/v1/memberships";
+
         given(membershipService.getMemberships(anyLong()))
                 .willThrow(IllegalArgumentException.class);
 
@@ -136,5 +144,46 @@ public class MembershipControllerTest {
         
         // then
         resultActions.andExpect(status().isBadRequest());
+    }
+
+    @DisplayName("멤버십 전체 조회")
+    @Test
+    void getMemberships() throws Exception {
+        // given
+        final String URL = "/api/v1/memberships";
+
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership1 = Membership.builder()
+                .id(1L)
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .build();
+        Membership membership2 = Membership.builder()
+                .id(2L)
+                .member(member)
+                .membershipType(MembershipType.KAKAO)
+                .registeredAt(LocalDateTime.now())
+                .build();
+        given(membershipService.getMemberships(anyLong()))
+                .willReturn(List.of(membership1, membership2));
+
+        // when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.get(URL)
+                        .header(MEMBER_ID_HEADER, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        resultActions.andExpect(status().isOk());
+
+        Type listType = new TypeToken<ArrayList<MembershipDetailedResponseDto>>(){}.getType();
+        List<MembershipDetailedResponseDto> responseDto = gson.fromJson(resultActions.andReturn()
+                .getResponse().getContentAsString(StandardCharsets.UTF_8), listType);
+
+        assertEquals(2, responseDto.size());
+        assertEquals(MembershipType.GSNPOINT.getCompanyName(), responseDto.get(0).getMembershipName());
     }
 }

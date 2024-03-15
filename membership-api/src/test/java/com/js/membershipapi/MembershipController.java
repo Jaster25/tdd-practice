@@ -35,6 +35,6 @@ public class MembershipController {
         List<MembershipDetailedResponseDto> responseDto = memberships.stream()
                 .map(MembershipDetailedResponseDto::of)
                 .toList();
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 }
