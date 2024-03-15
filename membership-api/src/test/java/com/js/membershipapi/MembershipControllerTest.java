@@ -265,4 +265,21 @@ public class MembershipControllerTest {
         // then
         resultActions.andExpect(status().isBadRequest());
     }
+
+    @DisplayName("멤버십 삭제")
+    @Test
+    void deleteMembership() throws Exception {
+        // given
+        final String URL = "/api/v1/memberships/3";
+
+        // when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.delete(URL)
+                        .header(MEMBER_ID_HEADER, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        resultActions.andExpect(status().isNoContent());
+    }
 }
