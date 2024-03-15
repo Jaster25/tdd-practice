@@ -1,5 +1,9 @@
-package com.js.membershipapi;
+package com.js.membershipapi.domain.membership.controller;
 
+import com.js.membershipapi.domain.membership.dto.MembershipDetailedResponseDto;
+import com.js.membershipapi.domain.membership.dto.MembershipRequestDto;
+import com.js.membershipapi.domain.membership.dto.MembershipResponseDto;
+import com.js.membershipapi.domain.membership.dto.PointRequestDto;
 import com.js.membershipapi.domain.membership.entity.Membership;
 import com.js.membershipapi.domain.membership.service.MembershipService;
 import lombok.RequiredArgsConstructor;

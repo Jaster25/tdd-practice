@@ -1,4 +1,4 @@
-package com.js.membershipapi;
+package com.js.membershipapi.domain.membership.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
