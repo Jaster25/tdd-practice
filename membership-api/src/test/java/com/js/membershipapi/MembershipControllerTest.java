@@ -241,4 +241,24 @@ public class MembershipControllerTest {
         assertEquals(3L, responseDto.getMembershipId());
         assertEquals(MembershipType.GSNPOINT.getCompanyName(), responseDto.getMembershipName());
     }
+
+    @DisplayName("존재하지 않는 멤버의 멤버십 삭제")
+    @Test
+    void deleteMembershipOfNonexistentMember() throws Exception {
+        // given
+        final String URL = "/api/v1/memberships/3";
+
+        given(membershipService.getMembership(anyLong(), anyLong()))
+                .willThrow(IllegalArgumentException.class);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.delete(URL)
+                        .header(MEMBER_ID_HEADER, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        resultActions.andExpect(status().isBadRequest());
+    }
 }
