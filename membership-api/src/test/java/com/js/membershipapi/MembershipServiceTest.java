@@ -167,7 +167,7 @@ public class MembershipServiceTest {
         // when
         // then
         assertThrows(IllegalArgumentException.class,
-                () -> membershipService.register(1L, MembershipType.GSNPOINT.getCompanyName()));
+                () -> membershipService.register(1L, MembershipType.GSNPOINT.getCompanyName(), 30));
     }
 
     @DisplayName("존재하지 않는 멤버십 이름 등록")
@@ -183,7 +183,7 @@ public class MembershipServiceTest {
         // when
         // then
         assertThrows(IllegalArgumentException.class,
-                () -> membershipService.register(1L, "abcd"));
+                () -> membershipService.register(1L, "abcd", 30));
     }
 
     @DisplayName("이미 존재하는 멤버십 중복 등록")
@@ -205,7 +205,7 @@ public class MembershipServiceTest {
         // when
         // then
         assertThrows(IllegalArgumentException.class,
-                () -> membershipService.register(1L, MembershipType.GSNPOINT.getCompanyName()));
+                () -> membershipService.register(1L, MembershipType.GSNPOINT.getCompanyName(), 30));
     }
 
     @DisplayName("존재하지 않는 멤버의 멤버십 삭제")

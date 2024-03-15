@@ -21,8 +21,7 @@ public class MembershipController {
     @PostMapping("/api/v1/memberships")
     public ResponseEntity<MembershipResponseDto> registerMembershipApi(@RequestHeader(MEMBER_ID_HEADER) Long memberId,
                                                                        @RequestBody MembershipRequestDto requestDto) {
-        Membership membership = membershipService.register(memberId, requestDto.getCompanyName());
-        membership.addPoint(requestDto.getPoint());
+        Membership membership = membershipService.register(memberId, requestDto.getCompanyName(), requestDto.getPoint());
 
         MembershipResponseDto responseDto = MembershipResponseDto.builder()
                 .membershipId(membership.getId())

@@ -20,8 +20,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -54,7 +53,7 @@ public class MembershipControllerTest {
         // given
         final String URL = "/api/v1/memberships";
         MembershipRequestDto MembershipRequestDto = new MembershipRequestDto(MembershipType.GSNPOINT.getCompanyName(), 500);
-        given(membershipService.register(anyLong(), anyString()))
+        given(membershipService.register(anyLong(), anyString(), anyInt()))
                 .willThrow(IllegalArgumentException.class);
 
         // when
@@ -75,7 +74,7 @@ public class MembershipControllerTest {
         // given
         final String URL = "/api/v1/memberships";
         MembershipRequestDto MembershipRequestDto = new MembershipRequestDto("aBC", 500);
-        given(membershipService.register(anyLong(), anyString()))
+        given(membershipService.register(anyLong(), anyString(), anyInt()))
                 .willThrow(IllegalArgumentException.class);
 
         // when
@@ -105,7 +104,7 @@ public class MembershipControllerTest {
                 .member(member)
                 .membershipType(MembershipType.GSNPOINT)
                 .build();
-        given(membershipService.register(anyLong(), anyString()))
+        given(membershipService.register(anyLong(), anyString(), anyInt()))
                 .willReturn(membership);
 
         // when

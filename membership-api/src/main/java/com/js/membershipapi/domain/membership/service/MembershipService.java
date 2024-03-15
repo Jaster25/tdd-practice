@@ -39,7 +39,7 @@ public class MembershipService {
     }
 
     @Transactional
-    public Membership register(Long memberId, String companyName) {
+    public Membership register(Long memberId, String companyName, int point) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
 
@@ -54,6 +54,7 @@ public class MembershipService {
         Membership membership = Membership.builder()
                 .member(member)
                 .membershipType(membershipType)
+                .point(point)
                 .build();
         return membershipRepository.save(membership);
     }
