@@ -186,4 +186,24 @@ public class MembershipControllerTest {
         assertEquals(2, responseDto.size());
         assertEquals(MembershipType.GSNPOINT.getCompanyName(), responseDto.get(0).getMembershipName());
     }
+
+    @DisplayName("존재하지 않는 멤버의 멤버십 상세 조회")
+    @Test
+    void getDetailedMembershipOfNonexistentMember() throws Exception {
+        // given
+        final String URL = "/api/v1/memberships/3";
+
+        given(membershipService.getMembership(anyLong(), anyLong()))
+                .willThrow(IllegalArgumentException.class);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.get(URL)
+                        .header(MEMBER_ID_HEADER, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        resultActions.andExpect(status().isBadRequest());
+    }
 }
