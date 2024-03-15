@@ -37,4 +37,12 @@ public class MembershipController {
                 .toList();
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
+
+    @GetMapping("/api/v1/memberships/{membershipId}")
+    public ResponseEntity<MembershipDetailedResponseDto> getMembershipApi(@RequestHeader(MEMBER_ID_HEADER) Long memberId,
+                                                                          @PathVariable Long membershipId) {
+        Membership membership = membershipService.getMembership(memberId, membershipId);
+        MembershipDetailedResponseDto responseDto = MembershipDetailedResponseDto.of(membership);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
 }
