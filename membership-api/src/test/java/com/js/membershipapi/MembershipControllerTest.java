@@ -304,4 +304,20 @@ public class MembershipControllerTest {
         // then
         resultActions.andExpect(status().isBadRequest());
     }
+
+    @DisplayName("포인트 적립")
+    @Test
+    void addMembershipPoint() throws Exception {
+        final String URL = "/api/v1/memberships/3/add";
+
+        // when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.post(URL)
+                        .header(MEMBER_ID_HEADER, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        resultActions.andExpect(status().isNoContent());
+    }
 }
