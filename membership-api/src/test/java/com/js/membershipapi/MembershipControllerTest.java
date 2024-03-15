@@ -118,4 +118,25 @@ public class MembershipControllerTest {
         // then
         resultActions.andExpect(status().isCreated());
     }
+    
+    @DisplayName("존재하지 않는 멤버의 멤버십 전체 조회")
+    @Test
+    void getMembershipsOfNonexistentMember() throws Exception {
+        // given
+        final String URL = "/api/v1/memberships";
+        MembershipRequestDto MembershipRequestDto = new MembershipRequestDto("aBC", 500);
+        given(membershipService.register(anyLong(), anyString(), anyInt()))
+                .willThrow(IllegalArgumentException.class);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.get(URL)
+                        .header(MEMBER_ID_HEADER, 1L)
+                        .content(gson.toJson(MembershipRequestDto))
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+        
+        // then
+        resultActions.andExpect(status().isBadRequest());
+    }
 }
