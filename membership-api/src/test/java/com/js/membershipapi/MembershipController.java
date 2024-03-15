@@ -45,4 +45,11 @@ public class MembershipController {
         MembershipDetailedResponseDto responseDto = MembershipDetailedResponseDto.of(membership);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
+
+    @DeleteMapping("/api/v1/memberships/{membershipId}")
+    public ResponseEntity<Void> deleteMembershipApi(@RequestHeader(MEMBER_ID_HEADER) Long memberId,
+                                                    @PathVariable Long membershipId) {
+        membershipService.delete(memberId, membershipId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
