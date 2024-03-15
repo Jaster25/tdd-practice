@@ -5,10 +5,9 @@ import com.js.membershipapi.domain.membership.service.MembershipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +26,15 @@ public class MembershipController {
                 .membershipId(membership.getId())
                 .companyName(membership.getMembershipType().getCompanyName())
                 .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    }
+
+    @GetMapping("/api/v1/memberships")
+    public ResponseEntity<List<MembershipDetailedResponseDto>> getMembershipsApi(@RequestHeader(MEMBER_ID_HEADER) Long memberId) {
+        List<Membership> memberships = membershipService.getMemberships(memberId);
+        List<MembershipDetailedResponseDto> responseDto = memberships.stream()
+                .map(MembershipDetailedResponseDto::of)
+                .toList();
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 }

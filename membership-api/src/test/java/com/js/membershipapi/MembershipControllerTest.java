@@ -124,15 +124,13 @@ public class MembershipControllerTest {
     void getMembershipsOfNonexistentMember() throws Exception {
         // given
         final String URL = "/api/v1/memberships";
-        MembershipRequestDto MembershipRequestDto = new MembershipRequestDto("aBC", 500);
-        given(membershipService.register(anyLong(), anyString(), anyInt()))
+        given(membershipService.getMemberships(anyLong()))
                 .willThrow(IllegalArgumentException.class);
 
         // when
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get(URL)
                         .header(MEMBER_ID_HEADER, 1L)
-                        .content(gson.toJson(MembershipRequestDto))
                         .contentType(MediaType.APPLICATION_JSON)
         );
         
