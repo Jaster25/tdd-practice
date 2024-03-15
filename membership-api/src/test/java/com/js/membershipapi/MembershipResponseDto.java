@@ -1,18 +1,20 @@
 package com.js.membershipapi;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MembershipRequestDto {
+public class MembershipResponseDto {
 
+    private Long membershipId;
     private String companyName;
-    private int point;
 
-    public MembershipRequestDto(String companyName, int point) {
+    @Builder
+    public MembershipResponseDto(Long membershipId, String companyName) {
+        this.membershipId = membershipId;
         this.companyName = companyName;
-        this.point = point;
     }
 }
