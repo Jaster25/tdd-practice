@@ -310,10 +310,13 @@ public class MembershipControllerTest {
     void addMembershipPoint() throws Exception {
         final String URL = "/api/v1/memberships/3/add";
 
+        PointRequestDto pointRequestDto = new PointRequestDto(500);
+
         // when
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(URL)
                         .header(MEMBER_ID_HEADER, 1L)
+                        .content(gson.toJson(pointRequestDto))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
