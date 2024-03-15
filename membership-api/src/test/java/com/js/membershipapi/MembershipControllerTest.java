@@ -282,4 +282,23 @@ public class MembershipControllerTest {
         // then
         resultActions.andExpect(status().isNoContent());
     }
+    
+    @DisplayName("존재하지 않는 멤버의 멤버십에 포인트 적립")
+    @Test
+    void addMembershipPointToNonexistentMember() throws Exception {
+        final String URL = "/api/v1/memberships/3/add";
+
+        given(membershipService.getMembership(anyLong(), anyLong()))
+                .willThrow(IllegalArgumentException.class);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.post(URL)
+                        .header(MEMBER_ID_HEADER, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        resultActions.andExpect(status().isBadRequest());
+    }
 }
