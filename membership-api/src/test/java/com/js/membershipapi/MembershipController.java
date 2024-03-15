@@ -16,13 +16,14 @@ public class MembershipController {
 
     private final MembershipService membershipService;
 
-    private final String X_USER_ID = "X-USER-ID";
+    private final String MEMBER_ID_HEADER = "X-USER-ID";
 
     @PostMapping("/api/v1/memberships")
-    public ResponseEntity<MembershipResponseDto> registerMembershipApi(@RequestHeader(X_USER_ID) Long memberId,
+    public ResponseEntity<MembershipResponseDto> registerMembershipApi(@RequestHeader(MEMBER_ID_HEADER) Long memberId,
                                                                        @RequestBody MembershipRequestDto requestDto) {
         Membership membership = membershipService.register(memberId, requestDto.getCompanyName());
         membership.addPoint(requestDto.getPoint());
+
         MembershipResponseDto responseDto = MembershipResponseDto.builder()
                 .membershipId(membership.getId())
                 .companyName(membership.getMembershipType().getCompanyName())
