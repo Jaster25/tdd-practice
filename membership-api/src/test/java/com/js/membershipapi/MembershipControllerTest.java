@@ -206,4 +206,39 @@ public class MembershipControllerTest {
         // then
         resultActions.andExpect(status().isBadRequest());
     }
+
+    @DisplayName("멤버십 상세 조회")
+    @Test
+    void getDetailedMembership() throws Exception {
+        // given
+        final String URL = "/api/v1/memberships/3";
+
+        Member member = Member.builder()
+                .name("김회원")
+                .build();
+        Membership membership = Membership.builder()
+                .id(3L)
+                .member(member)
+                .membershipType(MembershipType.GSNPOINT)
+                .point(300)
+                .build();
+        given(membershipService.getMembership(anyLong(), anyLong()))
+                .willReturn(membership);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.get(URL)
+                        .header(MEMBER_ID_HEADER, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        resultActions.andExpect(status().isOk());
+
+        MembershipDetailedResponseDto responseDto = gson.fromJson(resultActions.andReturn()
+                .getResponse().getContentAsString(StandardCharsets.UTF_8), MembershipDetailedResponseDto.class);
+
+        assertEquals(3L, responseDto.getMembershipId());
+        assertEquals(MembershipType.GSNPOINT.getCompanyName(), responseDto.getMembershipName());
+    }
 }
