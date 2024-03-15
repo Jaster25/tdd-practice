@@ -62,7 +62,7 @@ public class MembershipControllerTest {
     public void registerNonexistentMember() throws Exception {
         // given
         final String URL = "/api/v1/memberships";
-        MembershipRequestDto MembershipRequestDto = new MembershipRequestDto(MembershipType.GSNPOINT.getCompanyName(), 500);
+        MembershipRequestDto membershipRequestDto = new MembershipRequestDto(MembershipType.GSNPOINT.getCompanyName(), 500);
         given(membershipService.register(anyLong(), anyString(), anyInt()))
                 .willThrow(IllegalArgumentException.class);
 
@@ -70,7 +70,7 @@ public class MembershipControllerTest {
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(URL)
                         .header(MEMBER_ID_HEADER, 1L)
-                        .content(gson.toJson(MembershipRequestDto))
+                        .content(gson.toJson(membershipRequestDto))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -83,7 +83,7 @@ public class MembershipControllerTest {
     public void registerNonexistentCompanyName() throws Exception {
         // given
         final String URL = "/api/v1/memberships";
-        MembershipRequestDto MembershipRequestDto = new MembershipRequestDto("aBC", 500);
+        MembershipRequestDto membershipRequestDto = new MembershipRequestDto("aBC", 500);
         given(membershipService.register(anyLong(), anyString(), anyInt()))
                 .willThrow(IllegalArgumentException.class);
 
@@ -91,7 +91,7 @@ public class MembershipControllerTest {
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(URL)
                         .header(MEMBER_ID_HEADER, 1L)
-                        .content(gson.toJson(MembershipRequestDto))
+                        .content(gson.toJson(membershipRequestDto))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
@@ -288,13 +288,16 @@ public class MembershipControllerTest {
     void addMembershipPointToNonexistentMember() throws Exception {
         final String URL = "/api/v1/memberships/3/add";
 
-        given(membershipService.getMembership(anyLong(), anyLong()))
-                .willThrow(IllegalArgumentException.class);
+        PointRequestDto requestDto = new PointRequestDto(500);
+        doThrow(IllegalArgumentException.class)
+                .when(membershipService)
+                .addPoint(anyLong(), anyLong(), anyInt());
 
         // when
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post(URL)
                         .header(MEMBER_ID_HEADER, 1L)
+                        .content(gson.toJson(requestDto))
                         .contentType(MediaType.APPLICATION_JSON)
         );
 

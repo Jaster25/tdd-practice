@@ -52,4 +52,12 @@ public class MembershipController {
         membershipService.delete(memberId, membershipId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PostMapping("/api/v1/memberships/{membershipId}/add")
+    public ResponseEntity<Void> addMembershipPointApi(@RequestHeader(MEMBER_ID_HEADER) Long memberId,
+                                                      @PathVariable Long membershipId,
+                                                      @RequestBody PointRequestDto requestDto) {
+        membershipService.addPoint(memberId, membershipId, requestDto.getAmount());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
