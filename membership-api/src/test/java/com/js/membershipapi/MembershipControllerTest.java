@@ -29,6 +29,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -248,8 +251,9 @@ public class MembershipControllerTest {
         // given
         final String URL = "/api/v1/memberships/3";
 
-        given(membershipService.getMembership(anyLong(), anyLong()))
-                .willThrow(IllegalArgumentException.class);
+        doThrow(IllegalArgumentException.class)
+                .when(membershipService)
+                .delete(anyLong(), anyLong());
 
         // when
         ResultActions resultActions = mockMvc.perform(
