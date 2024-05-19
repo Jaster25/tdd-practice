@@ -24,9 +24,9 @@
 > 
 > 암호의 보안 단계(약함, 보통, 강함)를 확인해주는 간단한 암호 검사기를 구현해보자.
 
-[🔗 **실습 내용**](https://github.com/Jaster25/tdd-practice/tree/main/password-checker)
+🔗 [**실습 내용**](https://github.com/Jaster25/tdd-practice/tree/main/password-checker)
 
-[📚 유튜브 - 세미나 공유 - TDD 소개 및 시연 by 최범균](https://www.youtube.com/watch?v=6Vt-wKPBbuc&list=PLwouWTPuIjUj_QqgXlFsqjUwyC0-5dZ_q&index=5)
+📚 [유튜브 - 세미나 공유 - TDD 소개 및 시연 by 최범균](https://www.youtube.com/watch?v=6Vt-wKPBbuc&list=PLwouWTPuIjUj_QqgXlFsqjUwyC0-5dZ_q&index=5)
 
 <br>
 
@@ -35,8 +35,8 @@
 > 
 > 네이버, 카카오, GS&POINT 3가지 멤버십을 지원하며 멤버십 등록, 조회, 삭제, 포인트 적립 API가 제공되는 서비스를 구현해보자.
 
-[🔗 **실습 내용**](https://github.com/Jaster25/tdd-practice/tree/main/membership-api/)
+🔗 [**실습 내용**](https://github.com/Jaster25/tdd-practice/tree/main/membership-api/)
 
-[🔗 커밋 로그](https://github.com/Jaster25/tdd-practice/commits/feature/membership/)
+🔗 [커밋 로그](https://github.com/Jaster25/tdd-practice/commits/feature/membership/)
 
-[📚 블로그 - TDD 실습 by 망나니개발자](https://mangkyu.tistory.com/182)
+📚 [블로그 - TDD 실습 by 망나니개발자](https://mangkyu.tistory.com/182)

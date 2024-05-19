@@ -34,7 +34,7 @@
 
 ## 개발 과정
 
-[🔗 커밋 로그](https://github.com/Jaster25/tdd-practice/commits/feature/membership/)
+🔗 [커밋 로그](https://github.com/Jaster25/tdd-practice/commits/feature/membership/)
 
 1. Member 도메인 - 멤버십 전체 조회
 2. Member 도메인 - 멤버십 등록
