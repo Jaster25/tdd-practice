@@ -28,5 +28,8 @@ by ChatGPT
 | 할 일 상태 변경    | PATCH           | /api/todos/{todoId}     | - 완료 상태     | - 할 일 ID<br>- 제목<br>- 설명<br>- 완료 상태<br>- 생성 일시 |
 | 할 일 삭제하기     | DELETE          | /api/todos/{todoId}              | x           | x                                                          |
 
-
 <br>
+
+## 개발 과정
+
+1. 
