@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,6 +42,22 @@ class TodoControllerTest {
             mockMvc.perform(get("/api/todos")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
+        }
+
+        @DisplayName("응답 값 타입 확인")
+        @Test
+        void checkResponseDtoType() throws Exception {
+            // given
+            // when
+            // then
+            mockMvc.perform(get("/api/todos")
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$").isArray())
+                    .andExpect(jsonPath("$[0].id").value(1))
+                    .andExpect(jsonPath("$[0].title").value("독서"))
+                    .andExpect(jsonPath("$[0].description").value("주식 책 읽어야 함"))
+                    .andExpect(jsonPath("$[0].isCompleted").value(false));
         }
     }
 }
