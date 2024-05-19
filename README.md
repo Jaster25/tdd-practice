@@ -16,6 +16,7 @@
 ## 목차
 1. 암호 검사기
 2. 멤버십 적립 서비스
+3. Todo 리스트
 
 <br>
 
@@ -40,3 +41,14 @@
 🔗 [커밋 로그](https://github.com/Jaster25/tdd-practice/commits/feature/membership/)
 
 📚 [블로그 - TDD 실습 by 망나니개발자](https://mangkyu.tistory.com/182)
+
+<br>
+
+### 3. Todo 리스트 📝
+> **todo-list-api 프로젝트**
+> 
+> 할 일 추가, 조회, 상태 변경(미완료, 완료), 삭제를 지원하는 간단한 Todo 리스트 API
+
+[//]: # (🔗 [**실습 내용**]&#40;https://github.com/Jaster25/tdd-practice/tree/main/todo-list-api/&#41;)
+
+<br>
