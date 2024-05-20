@@ -53,6 +53,16 @@ class TodoControllerTest {
         @Test
         void checkResponseDtoType() throws Exception {
             // given
+            TodoResponseDto todoResponseDto1 = TodoResponseDto.builder()
+                    .id(1L)
+                    .title("독서")
+                    .description("주식 책 읽어야 함")
+                    .isCompleted(false)
+                    .build();
+
+            given(todoService.getTodos())
+                    .willReturn(List.of(todoResponseDto1));
+
             // when
             // then
             mockMvc.perform(get("/api/todos")
