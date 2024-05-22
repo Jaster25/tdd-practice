@@ -1,6 +1,7 @@
 package com.example.todolistapi.domain.todo.service;
 
 import com.example.todolistapi.domain.todo.dto.TodoResponseDto;
+import com.example.todolistapi.domain.todo.repository.TodoRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -15,6 +16,9 @@ class TodoServiceTest {
 
     @InjectMocks
     private TodoService todoService;
+
+    @Mock
+    private TodoRepository todoRepository;
 
     // 아래 코드는 클래스 상단 JUnit5 - @ExtendWith(MockitoExtension.class)으로 대체됨
     /*
@@ -45,6 +49,18 @@ class TodoServiceTest {
             assertEquals("제목2", todoResponseDtos.get(1).title());
             assertEquals("설명2", todoResponseDtos.get(1).description());
             assertEquals(false, todoResponseDtos.get(1).isCompleted());
+        }
+
+        @DisplayName("Repository 메서드 호출 확인")
+        @Test
+        void getTodos2() {
+            // given
+            // when
+            todoService.getTodos();
+
+            // then
+            BDDMockito.verify(todoRepository, Mockito.times(1))
+                    .findAll();
         }
     }
 }
