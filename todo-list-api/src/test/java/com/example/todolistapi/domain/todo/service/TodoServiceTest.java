@@ -28,7 +28,7 @@ class TodoServiceTest {
     @Nested
     class GetTodosTests {
 
-        @DisplayName("할 일 목록 조회")
+        @DisplayName("반환 값 확인")
         @Test
         void getTodos() {
             // given
@@ -37,7 +37,14 @@ class TodoServiceTest {
 
             // then
             assertEquals(1L, todoResponseDtos.get(0).id());
+            assertEquals("제목1", todoResponseDtos.get(0).title());
+            assertEquals("설명1", todoResponseDtos.get(0).description());
+            assertEquals(true, todoResponseDtos.get(0).isCompleted());
+
             assertEquals(2L, todoResponseDtos.get(1).id());
+            assertEquals("제목2", todoResponseDtos.get(1).title());
+            assertEquals("설명2", todoResponseDtos.get(1).description());
+            assertEquals(false, todoResponseDtos.get(1).isCompleted());
         }
     }
 }
